@@ -1,0 +1,108 @@
+class GroceryManagement {}
+
+class User {
+  String username;
+  String password;
+  String name; 
+  Integer phoneNumber; 
+}
+
+class UserRole{
+  abstract;
+}
+
+class Customer {
+  isA UserRole;
+  String address;
+  Integer totalPoints;
+}
+
+class Manager {
+  isA UserRole;
+}
+
+class Employee {
+  isA UserRole;
+}
+
+class Item {
+  Integer quantity;
+  String name; 
+  Float price; 
+  ShelfLife shelfLife;
+  Points point;
+  
+}
+
+associationClass OrderQuantity {
+	Integer quantity;
+
+	* Order orders;
+	* Item items;
+}
+
+class Order {
+  abstract;
+}
+
+class CustomerOrder {
+  isA Order;
+  DeliveryTime time;
+  Integer orderNumber;
+  Boolean isPaid; 
+  
+}
+
+class RestockOrder {
+  isA Order;
+  Boolean hasArrived;
+  
+}
+
+association {
+1 User user -- 1..2 UserRole roles;
+}
+
+association {
+1 Customer customer -- * CustomerOrder orders;
+}
+
+association {
+0..1 Employee assignedEmployee -- * CustomerOrder assignedOrders;
+}
+
+association {
+1 GroceryManagement <@>- 1..* User;
+}
+
+association {
+1 GroceryManagement <@>- 1..* UserRole;
+}
+
+association {
+1 GroceryManagement <@>- * Order;
+}
+
+association {
+1 GroceryManagement <@>- * Item;
+}
+
+enum ShelfLife {
+    PERISHABLE,
+    NON_PERISHABLE
+}
+
+enum DeliveryTime {
+    SAME_DAY,
+    NEXT_DAY, 
+    TWO_DAYS, 
+    THREE_DAYS
+}
+
+enum Points {
+    ONE, 
+    TWO, 
+    THREE, 
+    FOUR, 
+    FIVE
+}
